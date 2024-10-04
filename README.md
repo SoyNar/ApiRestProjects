@@ -25,7 +25,8 @@ El objetivo de esta API es proporcionar una solución robusta para gestionar pro
 ## Modelo ER
 A continuación se presenta el diagrama entidad-relación de proyectos y tareas:
 
-![Diagrama ER](/home/nar/Descargas/ApiProjectDiagramaER.png)
+![Diagrama ER](/home/nar/IdeaProjects/RiwiProject/docs/ApiProjectDiagramaER.png)
+
 
 ## API Documentada
 La API está documentada utilizando **Swagger**. Puedes acceder a la documentación en el siguiente enlace:
