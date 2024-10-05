@@ -1,4 +1,4 @@
-package main.java.Infrastructure.Adapters.In.Rest.Dto;
+package com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto;
 
 public class UserRequestDto {
 }

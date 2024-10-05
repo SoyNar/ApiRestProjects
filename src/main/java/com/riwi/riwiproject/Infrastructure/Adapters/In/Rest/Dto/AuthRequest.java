@@ -1,4 +1,4 @@
-package com.riwi.techq.Infrastructure.Adapters.In.Rest.Dto;
+package com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto;
 
 import jakarta.validation.constraints.NotBlank;
 

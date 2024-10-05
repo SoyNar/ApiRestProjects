@@ -1,8 +1,7 @@
-package com.riwi.techq.domain.Enums;
+package com.riwi.riwiproject.domain.Enums;
 
 public enum Role {
     ADMIN,
-    STUDENT,
-    TEACHER
+    USER
 
 }

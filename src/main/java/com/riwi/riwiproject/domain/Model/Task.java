@@ -1,8 +1,9 @@
 package com.riwi.riwiproject.domain.Model;
-
-import com.riwi.riwiproject.domain.Enums.Role;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 
@@ -13,28 +14,29 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "task")
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false,unique = true)
-    private String email;
+    private String tittle;
 
     @Column(nullable = false)
-    private String password;
+    private String description;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @ManyToOne
+    @JoinColumn(name = "proyect_id")
+    private Proyects proyects;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User userAsigned;
 
     @CreatedBy
     private String createdBy;
 
     @LastModifiedBy
     private String modifiedBy;
-
 }

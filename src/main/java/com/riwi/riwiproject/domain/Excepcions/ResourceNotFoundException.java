@@ -1,4 +1,4 @@
-package com.riwi.techq.domain.Excepcions;
+package com.riwi.riwiproject.domain.Excepcions;
 
 import lombok.*;
 

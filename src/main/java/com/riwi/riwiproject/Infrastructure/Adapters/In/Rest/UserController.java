@@ -1,4 +1,4 @@
-package main.java.Infrastructure.Adapters.In.Rest;
+package com.riwi.riwiproject.Infrastructure.Adapters.In.Rest;
 
 public class UserController {
 }
