@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
-public class ProyectRequesDto {
+public class ProyectRequestDto {
 
     @NotBlank(message = "El título no puede estar vacío")
     private String tittle;
