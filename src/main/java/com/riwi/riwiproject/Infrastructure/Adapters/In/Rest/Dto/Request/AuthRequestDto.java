@@ -1,8 +1,6 @@
 package com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request;
 
-
-import com.riwi.riwiproject.domain.Enums.Role;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,10 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
-public class UserRequestDto {
-
+public class AuthRequestDto {
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
-    private Role role;
 }

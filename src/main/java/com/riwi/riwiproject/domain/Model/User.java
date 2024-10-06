@@ -6,7 +6,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 
-
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,10 +19,7 @@ public class User {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(nullable = false,unique = true)
-    private String email;
+    private String username;
 
     @Column(nullable = false)
     private String password;
