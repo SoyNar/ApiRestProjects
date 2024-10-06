@@ -28,7 +28,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "proyect_id")
-    private Proyects proyects;
+    private Proyects proyect;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "proyect")
+@Table(name = "proyects")
 public class Proyects {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class Proyects {
     private String nameAdmin;
 
     @OneToMany(mappedBy = "proyect", cascade = CascadeType.ALL)
-    private List<Task> tasksProyect;
+    private List<Task> tasks;
 
     @CreatedBy
     private String createdBy;
