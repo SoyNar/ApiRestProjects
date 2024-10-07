@@ -15,6 +15,7 @@ import java.util.List;
 @Builder
 public class TaskRequesDTo {
 
+    private String asignedUsername;
     @NotBlank
     private String tittle;
     @NotBlank

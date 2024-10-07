@@ -50,10 +50,11 @@ public class UserServiceImpl implements IUserService {
 
         // Asignar la contraseña encriptada
         user.setPassword(encodedPassword);
+        user.setFirstName(userDto.getName());
 
         // Configurar los campos adicionales
-        user.setCreatedBy("system"); // O el usuario que esté creando, según tu lógica
-        user.setModifiedBy("system"); // Inicializar o dejar como NULL
+        user.setCreatedBy("system");
+        user.setModifiedBy("system");
 
         // Guardar el usuario y mapearlo a UserResponseDto
         return userMapper.userToUserDto(userRepository.save(user));

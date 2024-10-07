@@ -20,6 +20,6 @@ public class ProyectRequesDto {
     @NotBlank(message = "campo no puede ser null")
     private String nameAdmin;
     @NotNull(message = "la lista no puede ser vacia")
-    private List<TaskRequesDTo> tasks;
+    private List<TaskUserAsignedRequestDTo> tasks;
 
 }
