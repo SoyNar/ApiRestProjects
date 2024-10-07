@@ -2,6 +2,7 @@ package com.riwi.riwiproject.domain.Model;
 
 import com.riwi.riwiproject.domain.Enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -17,7 +18,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(unique = true)
+    private String firstName;
+    @Email(message = "debe ser un correo")
     @Column(nullable = false)
     private String username;
 

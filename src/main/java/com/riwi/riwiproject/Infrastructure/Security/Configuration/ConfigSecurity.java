@@ -68,7 +68,7 @@ public class ConfigSecurity {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST,"/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/api/proyect/save").hasRole("ADMIN")
                         .requestMatchers(
                                 "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                                 .anyRequest().authenticated()
