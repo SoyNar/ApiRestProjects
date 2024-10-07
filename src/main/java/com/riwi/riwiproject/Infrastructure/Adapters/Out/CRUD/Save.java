@@ -1,5 +1,5 @@
 package com.riwi.riwiproject.Infrastructure.Adapters.Out.CRUD;
 
-public interface Save<Entity,EntityDTO>{
-    public Entity save(EntityDTO entity);
+public interface Save<EntityResponse,EntityRequest>{
+    public EntityResponse save(EntityRequest request);
 }
