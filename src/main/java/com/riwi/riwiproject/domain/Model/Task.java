@@ -32,9 +32,4 @@ public class Task {
     @JoinColumn(name = "user_id")
     private User userAsigned;
 
-    @CreatedBy
-    private String createdBy;
-
-    @LastModifiedBy
-    private String modifiedBy;
 }

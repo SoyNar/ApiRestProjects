@@ -1,4 +1,5 @@
 package com.riwi.riwiproject.domain.Model;
+import com.riwi.riwiproject.Config.Auditable;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "proyects")
-public class Proyects {
+public class Proyects extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,9 +32,4 @@ public class Proyects {
     @OneToMany(mappedBy = "proyect", cascade = CascadeType.ALL)
     private List<Task> tasks = new ArrayList<>();
 
-    @CreatedBy
-    private String createdBy;
-
-    @LastModifiedBy
-    private String modifiedBy;
 }

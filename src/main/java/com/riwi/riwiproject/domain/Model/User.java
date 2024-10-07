@@ -1,5 +1,6 @@
 package com.riwi.riwiproject.domain.Model;
 
+import com.riwi.riwiproject.Config.Auditable;
 import com.riwi.riwiproject.domain.Enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -14,7 +15,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class User  extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,10 +31,5 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @CreatedBy
-    private String createdBy;
-
-    @LastModifiedBy
-    private String modifiedBy;
 
 }
