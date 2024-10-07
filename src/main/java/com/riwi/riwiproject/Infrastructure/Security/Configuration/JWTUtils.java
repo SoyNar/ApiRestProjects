@@ -13,10 +13,6 @@ import static com.riwi.riwiproject.Infrastructure.Security.Configuration.TokenJw
 @Component
 public class JWTUtils {
 
-
-
-
-
     // Extraer el nombre de usuario del token JWT
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

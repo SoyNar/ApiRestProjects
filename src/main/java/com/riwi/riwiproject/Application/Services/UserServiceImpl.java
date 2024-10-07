@@ -39,10 +39,6 @@ public class UserServiceImpl implements IUserService {
     public UserResponseDto save(UserRequestDto userDto) {
 
 
-        // Verifica que el rol sea USER
-        if (userDto.getRole() != Role.USER) {
-            throw new IllegalArgumentException("Solo se permite el registro de usuarios con rol USER.");
-        }
 
         if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
             throw new RuntimeException("Username already exists");

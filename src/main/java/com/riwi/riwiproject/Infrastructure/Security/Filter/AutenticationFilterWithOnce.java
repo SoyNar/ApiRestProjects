@@ -30,8 +30,6 @@ public class AutenticationFilterWithOnce extends OncePerRequestFilter {
     private UserDetailsService userDetailsService;
 
 
-
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {

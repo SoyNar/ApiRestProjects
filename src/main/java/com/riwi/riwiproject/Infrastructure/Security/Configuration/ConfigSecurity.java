@@ -67,6 +67,7 @@ public class ConfigSecurity {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST,"/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/").hasRole("ADMIN")
                         // Permitir acceso sin autenticación al endpoint de autenticación
                         .anyRequest().authenticated()
                 );
