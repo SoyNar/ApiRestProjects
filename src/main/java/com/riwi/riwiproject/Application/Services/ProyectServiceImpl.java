@@ -1,6 +1,7 @@
 package com.riwi.riwiproject.Application.Services;
 
 import com.riwi.riwiproject.Application.Ports.in.IProyectService;
+import com.riwi.riwiproject.Config.MailSender;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request.ProyectRequesDto;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request.TaskRequesDTo;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request.TaskUserAsignedRequestDTo;
@@ -35,6 +36,9 @@ public class ProyectServiceImpl implements IProyectService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MailSender emailService;
 
     @Transactional
     @Override
@@ -84,6 +88,14 @@ public class ProyectServiceImpl implements IProyectService {
                 .proyect(proyect)
                 .userAsigned(assignedUser)
                 .build();
+
+
+        // Enviar notificación por correo al usuario asignado
+        String destinatario = assignedUser.getUsername();
+        String asunto = "Nueva tarea asignada: " + task.getTittle();
+        String mensaje = String.format("Hola %s,\n\nSe te ha asignado una nueva tarea: %s.\n\nDescripción: %s",
+                assignedUser.getUsername(), task.getTittle(), task.getDescription());
+        emailService.enviarCorreo(destinatario, asunto, mensaje);
 
         return taskRepository.save(task);
     }
