@@ -6,8 +6,6 @@ import com.riwi.riwiproject.Infrastructure.Adapters.Out.CRUD.ReadAll;
 import com.riwi.riwiproject.Infrastructure.Adapters.Out.CRUD.Save;
 import com.riwi.riwiproject.domain.Model.User;
 
-import org.springframework.stereotype.Component;
-
 
 public interface IUserService extends
                 Save<UserResponseDto,

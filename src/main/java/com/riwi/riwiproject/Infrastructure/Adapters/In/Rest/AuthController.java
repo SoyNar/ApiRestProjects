@@ -1,6 +1,4 @@
 package com.riwi.riwiproject.Infrastructure.Adapters.In.Rest;
-
-import com.riwi.riwiproject.Application.Mapper.UserMapper;
 import com.riwi.riwiproject.Application.Ports.in.IUserService;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request.AuthRequestDto;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request.UserRequestDto;
@@ -16,12 +14,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+import java.util.List;
 
 @RequestMapping("/auth")
 @RestController
@@ -63,5 +59,10 @@ public class AuthController {
 
         String token = jwtUtils.generateToken(authentication);
         return ResponseEntity.ok(token);
+    }
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> readAll(){
+        List<User> users = this.userService.readAll();
+        return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 }

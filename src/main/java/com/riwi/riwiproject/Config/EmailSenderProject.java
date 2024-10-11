@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 // creacion del servicio de correos
 @Component
-public class MailSender {
+public class EmailSenderProject {
     @Autowired
     private JavaMailSender mailSender;
 
