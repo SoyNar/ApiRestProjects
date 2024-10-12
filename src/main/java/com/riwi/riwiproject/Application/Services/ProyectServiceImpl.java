@@ -7,8 +7,10 @@ import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Response.Proyect
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Response.TaksResponseDto;
 import com.riwi.riwiproject.Infrastructure.Adapters.Out.Persistence.IProyectsRepository;
 import com.riwi.riwiproject.Infrastructure.Adapters.Out.Persistence.ITaskRepository;
+import com.riwi.riwiproject.Infrastructure.Adapters.Out.Persistence.UserRepository;
 import com.riwi.riwiproject.domain.Model.Proyects;
 import com.riwi.riwiproject.domain.Model.Task;
+import com.riwi.riwiproject.domain.Model.User;
 import jakarta.persistence.UniqueConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +29,10 @@ public class ProyectServiceImpl implements IProyectService {
 
     @Autowired
     private ITaskRepository taskRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-@Transactional
+    @Transactional
     @Override
     public ProyectResponseDto save(ProyectRequesDto proyectRequesDto) {
         Proyects proyects = Proyects.builder()
@@ -43,9 +47,15 @@ public class ProyectServiceImpl implements IProyectService {
 
     Optional.ofNullable(proyectRequesDto.getTasks()).ifPresent(tasks -> {
         for (TaskRequesDTo taskRequesDTo : tasks) {
+
+            // buscar usuario por nombre
+
+            User users = userRepository.findByUsername(taskRequesDTo.getUserAsigned()).orElseThrow(() ->
+                    new RuntimeException("user not found"));
             Task task = Task.builder()
                     .tittle(taskRequesDTo.getTittle())
                     .description(taskRequesDTo.getDescription())
+                    .userAsigned(users)
                     .proyect(proyects)
                     .build();
             this.taskRepository.save(task);
