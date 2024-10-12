@@ -1,6 +1,4 @@
 package com.riwi.riwiproject.Infrastructure.Adapters.In.Rest;
-
-import com.riwi.riwiproject.Application.Mapper.UserMapper;
 import com.riwi.riwiproject.Application.Ports.in.IUserService;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request.AuthRequestDto;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request.UserRequestDto;
@@ -12,16 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+import java.util.List;
 
 @RequestMapping("/auth")
 @RestController
@@ -63,5 +60,22 @@ public class AuthController {
 
         String token = jwtUtils.generateToken(authentication);
         return ResponseEntity.ok(token);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> showAll (){
+        List<User> users = this.userService.readAll();
+        return  ResponseEntity.status(HttpStatus.OK).body(users);
+    }
+
+    @PostMapping("/createUsers")
+    @PreAuthorize("'ADMIN'")
+    public ResponseEntity<UserResponseDto> createByAdmin( @RequestBody UserRequestDto userRequestDto){
+        try {
+            UserResponseDto createdUser = userService.save(userRequestDto);
+            return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
     }
 }
