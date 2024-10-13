@@ -11,13 +11,15 @@ public class UserMapper {
     public UserResponseDto userToUserDto(User user) {
         return UserResponseDto.builder()
                 .password(user.getPassword())
-                .name(user.getUsername())
+                .name(user.getFirstName())
+                .username(user.getUsername())
                 .role(user.getRole())
                 .build();
     }
 
     public User userDtoToUser(UserRequestDto userRequestDto) {
         return User.builder()
+                .firstName(userRequestDto.getName())
                 .username(userRequestDto.getUsername())
                 .password(userRequestDto.getPassword())
                 .role(userRequestDto.getRole())

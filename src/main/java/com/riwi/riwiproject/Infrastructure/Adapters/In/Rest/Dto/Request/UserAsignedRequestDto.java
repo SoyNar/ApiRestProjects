@@ -1,8 +1,6 @@
 package com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request;
 
-
-import com.riwi.riwiproject.domain.Enums.Role;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,10 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
-public class UserRequestDto {
+public class UserAsignedRequestDto {
+    @NotBlank(message = "el nombre del usuario no puede ser null")
     private String name;
     private String username;
-    private String password;
-    private Role role;
 }
