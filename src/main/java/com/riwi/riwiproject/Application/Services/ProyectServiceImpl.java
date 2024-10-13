@@ -78,4 +78,9 @@ public class ProyectServiceImpl implements IProyectService {
                         .collect(Collectors.toList()))
                 .build();
     }
+
+    @Override
+    public List<Task> readAll() {
+        return this.taskRepository.findAll();
+    }
 }

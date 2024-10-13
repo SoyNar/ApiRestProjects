@@ -68,6 +68,7 @@ public class ConfigSecurity {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST,"/auth/register").permitAll()
                         .requestMatchers(HttpMethod.GET,"/auth/users").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/task/find").hasRole("USER")
                         .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/").hasRole("ADMIN")
                         .requestMatchers(
