@@ -21,5 +21,5 @@ public class TaskRequesDTo {
     @NotBlank
     private String description;
     @NotNull
-    private List<User> user;
+    private String userAsigned;
 }

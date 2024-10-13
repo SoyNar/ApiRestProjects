@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -60,9 +61,21 @@ public class AuthController {
         String token = jwtUtils.generateToken(authentication);
         return ResponseEntity.ok(token);
     }
+
     @GetMapping("/users")
-    public ResponseEntity<List<User>> readAll(){
+    public ResponseEntity<List<User>> showAll (){
         List<User> users = this.userService.readAll();
-        return ResponseEntity.status(HttpStatus.OK).body(users);
+        return  ResponseEntity.status(HttpStatus.OK).body(users);
+    }
+
+    @PostMapping("/createUsers")
+    @PreAuthorize("'ADMIN'")
+    public ResponseEntity<UserResponseDto> createByAdmin( @RequestBody UserRequestDto userRequestDto){
+        try {
+            UserResponseDto createdUser = userService.save(userRequestDto);
+            return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
     }
 }
