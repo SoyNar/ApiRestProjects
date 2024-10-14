@@ -1,5 +1,6 @@
 package com.riwi.riwiproject.Application.Services;
 
+import com.riwi.riwiproject.Application.Exceptions.UserNotFounExcepcion;
 import com.riwi.riwiproject.Infrastructure.Adapters.Out.Persistence.UserRepository;
 
 import com.riwi.riwiproject.domain.Model.User;
@@ -26,7 +27,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("Usuario %s no encontrado con nombre: ") + username));
+                .orElseThrow(() -> new UserNotFounExcepcion(username));
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),

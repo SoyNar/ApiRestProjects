@@ -11,7 +11,7 @@ import com.riwi.riwiproject.domain.Model.Task;
 import com.riwi.riwiproject.domain.Model.User;
 
 public interface IProyectService extends
-        Save<ProyectResponseDto, ProyectRequesDto>, ReadAll<Task>,Disable<ProyectResponseDto,Long>
+        Save<ProyectResponseDto, ProyectRequesDto>, ReadAll<Proyects>,Disable<ProyectResponseDto,Long>
 
 
 {

@@ -1,19 +1,18 @@
 package com.riwi.riwiproject.Application.Services;
 
+import com.riwi.riwiproject.Application.Exceptions.ProyectNoFoundException;
+import com.riwi.riwiproject.Application.Exceptions.UserNotFounExcepcion;
 import com.riwi.riwiproject.Application.Ports.in.IProyectService;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request.ProyectRequesDto;
-import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request.TaskRequesDTo;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request.TaskUserAsignedRequestDTo;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Response.ProyectResponseDto;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Response.TaksResponseDto;
-import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Response.UserResponseDto;
 import com.riwi.riwiproject.Infrastructure.Adapters.Out.Persistence.IProyectsRepository;
 import com.riwi.riwiproject.Infrastructure.Adapters.Out.Persistence.ITaskRepository;
 import com.riwi.riwiproject.Infrastructure.Adapters.Out.Persistence.UserRepository;
 import com.riwi.riwiproject.domain.Model.Proyects;
 import com.riwi.riwiproject.domain.Model.Task;
 import com.riwi.riwiproject.domain.Model.User;
-import jakarta.persistence.UniqueConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +52,7 @@ public class ProyectServiceImpl implements IProyectService {
             // buscar usuario por nombre
 
             User users = userRepository.findByUsername(taskRequesDTo.getNameAssigned()).orElseThrow(() ->
-                    new RuntimeException("user not found"));
+                    new UserNotFounExcepcion(taskRequesDTo.getNameAssigned()));
             Task task = Task.builder()
                     .tittle(taskRequesDTo.getTitle())
                     .description(taskRequesDTo.getDescription())
@@ -82,8 +81,8 @@ public class ProyectServiceImpl implements IProyectService {
     }
 
     @Override
-    public List<Task> readAll() {
-        return this.taskRepository.findAll();
+    public List<Proyects> readAll() {
+        return this.proyectsRepository.findAll();
     }
 
 
@@ -91,7 +90,7 @@ public class ProyectServiceImpl implements IProyectService {
     @Override
     public ProyectResponseDto disable(Long id) {
         Proyects existingProyect = proyectsRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Proyecto no encontrado"));
+                .orElseThrow(() -> new ProyectNoFoundException(id));
 
         // Lógica para deshabilitar o eliminar el proyecto
         proyectsRepository.delete(existingProyect);
