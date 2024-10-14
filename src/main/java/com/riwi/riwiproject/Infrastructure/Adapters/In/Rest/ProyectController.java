@@ -36,4 +36,11 @@ public class ProyectController {
          return  ResponseEntity.status(HttpStatus.CREATED).body(proyectResponseDto);
     }
 
+    @DeleteMapping("delete/{id}")
+    @PreAuthorize("'ADMIN'")
+    public ResponseEntity<ProyectResponseDto> deletePRoyect(@PathVariable Long id){
+        ProyectResponseDto responseDto = proyectService.disable(id);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto);
+    }
+
 }

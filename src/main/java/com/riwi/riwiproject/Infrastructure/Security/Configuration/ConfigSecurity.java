@@ -70,6 +70,7 @@ public class ConfigSecurity {
                         .requestMatchers(HttpMethod.GET,"/auth/users").permitAll()
                         .requestMatchers(HttpMethod.GET,"/task/find").hasRole("USER")
                         .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.DELETE,"/api/proyect/delete").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/api/").hasRole("ADMIN")
                         .requestMatchers(
                                 "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
