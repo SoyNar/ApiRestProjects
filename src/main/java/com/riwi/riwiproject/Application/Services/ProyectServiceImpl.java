@@ -3,8 +3,10 @@ package com.riwi.riwiproject.Application.Services;
 import com.riwi.riwiproject.Application.Ports.in.IProyectService;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request.ProyectRequesDto;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request.TaskRequesDTo;
+import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Request.TaskUserAsignedRequestDTo;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Response.ProyectResponseDto;
 import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Response.TaksResponseDto;
+import com.riwi.riwiproject.Infrastructure.Adapters.In.Rest.Dto.Response.UserResponseDto;
 import com.riwi.riwiproject.Infrastructure.Adapters.Out.Persistence.IProyectsRepository;
 import com.riwi.riwiproject.Infrastructure.Adapters.Out.Persistence.ITaskRepository;
 import com.riwi.riwiproject.Infrastructure.Adapters.Out.Persistence.UserRepository;
@@ -46,14 +48,14 @@ public class ProyectServiceImpl implements IProyectService {
 
 
     Optional.ofNullable(proyectRequesDto.getTasks()).ifPresent(tasks -> {
-        for (TaskRequesDTo taskRequesDTo : tasks) {
+        for (TaskUserAsignedRequestDTo taskRequesDTo : tasks) {
 
             // buscar usuario por nombre
 
-            User users = userRepository.findByUsername(taskRequesDTo.getUserAsigned()).orElseThrow(() ->
+            User users = userRepository.findByUsername(taskRequesDTo.getNameAssigned()).orElseThrow(() ->
                     new RuntimeException("user not found"));
             Task task = Task.builder()
-                    .tittle(taskRequesDTo.getTittle())
+                    .tittle(taskRequesDTo.getTitle())
                     .description(taskRequesDTo.getDescription())
                     .userAsigned(users)
                     .proyect(proyects)
@@ -83,4 +85,40 @@ public class ProyectServiceImpl implements IProyectService {
     public List<Task> readAll() {
         return this.taskRepository.findAll();
     }
+
+
+
+    @Override
+    public ProyectResponseDto disable(Long id) {
+        Proyects existingProyect = proyectsRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Proyecto no encontrado"));
+
+        // Lógica para deshabilitar o eliminar el proyecto
+        proyectsRepository.delete(existingProyect);
+
+        // Convertir el objeto eliminado a ProyectResponseDto y devolverlo
+        return convertToResponseDto(existingProyect);
+    }
+
+    private ProyectResponseDto convertToResponseDto(Proyects proyect) {
+        return ProyectResponseDto.builder()
+                .title(proyect.getTittle())
+                .description(proyect.getDescription())
+                .task(proyect.getTasks().stream()  // Recorre todas las tareas del proyecto
+                        .map(this::convertToTaskResponseDto)  // Convierte cada tarea a TaskResponseDto
+                        .collect(Collectors.toList()))  // Colecciona los DTOs en una lista
+                .build();
+    }
+
+    private TaksResponseDto convertToTaskResponseDto(Task task) {
+        return TaksResponseDto.builder()
+                .title(task.getTittle())
+                .description(task.getDescription())
+                .user(task.getUserAsigned().getUsername())  // Convierte el usuario de la tarea a UserResponseDto
+                .build();
+
+
+    }
+
 }
+
