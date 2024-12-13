@@ -36,19 +36,8 @@ public class ConfigSecurity {
     @Autowired
     private AutenticationFilterWithOnce validationFilter;
 
-    @Bean
-    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
-        StrictHttpFirewall firewall = new StrictHttpFirewall();
-        firewall.setAllowUrlEncodedSlash(true);
-        firewall.setAllowUrlEncodedPercent(true);  // Permitir `%` codificado
-        firewall.setAllowUrlEncodedDoubleSlash(true);
-        return firewall;
-    }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer(HttpFirewall httpFirewall) {
-        return (web) -> web.httpFirewall(httpFirewall);
-    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

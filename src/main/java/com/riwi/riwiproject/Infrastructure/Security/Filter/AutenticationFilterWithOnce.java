@@ -43,20 +43,17 @@ public class AutenticationFilterWithOnce extends OncePerRequestFilter {
         if (header != null && header.startsWith(PREFIX_TOKEN)) {
             token = header.substring(7);
             username = jwtUtil.extractUsername(token);
-            System.out.println("iniciando sesion2");
         }
 
         // Si se obtiene un username y no hay autenticación previa en el contexto
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            System.out.println("iniciando sesion3");
             // Validar el token y configurar la autenticación
             if (jwtUtil.validateToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-                System.out.println("iniciando sesion4");
             }
         }
 
